@@ -1,1 +1,1 @@
-worker: java -cp target/your-project.jar com.bot.insta.BotLauncher
+web: mvn clean compile exec:java -Dexec.mainClass="com.bot.insta.BotLauncher"
