@@ -5,10 +5,9 @@ import org.telegram.telegrambots.meta.api.methods.GetFile;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Document;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.*;
@@ -64,6 +63,7 @@ public class InstagramBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
 
+
             } else if (message.hasText()) {
                 String text = message.getText().trim().toLowerCase();
 
@@ -82,9 +82,21 @@ public class InstagramBot extends TelegramLongPollingBot {
                             "📧 *Contact:* If any help or query, you can contact Developer @shibili or on Instagram: [shibliee](https://www.instagram.com/shibliee).");
                 } else if (text.contains("hi") || text.contains("hello")) {
                     sendText(userId, "👋 Hi! Please upload the Instagram ZIP file to get started.");
+                }
 
-
-                } else if (text.equals("/start")) {
+                else if (text.equals("/how_to_download_video")) {
+                    SendMessage msg = new SendMessage();
+                    msg.setChatId(userId.toString());
+                    msg.setText("▶️ *Watch this short video on how to download your Instagram ZIP file:*\n\n" +
+                            "[Click to Watch](https://youtube.com/shorts/rQY8vDRVDdA?si=-8yGnI4fcHdn8Q1s)");
+                    msg.setParseMode("Markdown");
+                    try {
+                        execute(msg);
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else if (text.equals("/start")) {
                     sendText(userId, "🤖 *NonFollowersFinderBot*\n\n" +
                             "Welcome! Please upload your Instagram ZIP file to get started.\n\n" +
                             "Use /help for instructions on how to use this bot.");
